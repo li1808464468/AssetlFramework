@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ui Sprite Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 75df1fb83182a4453966c504971bb0a8, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 15b260d0e64e34caa9db32621cdc24e7, type: 3}
+  - {fileID: 21300000, guid: f9a680d848d3a49a798496d7ab2e0fa5, type: 3}
+  - {fileID: 21300000, guid: 06afd2fa480ef45388e5d2744736dc1b, type: 3}
+  - {fileID: 21300000, guid: 514e425b519344201aefdca2cf954849, type: 3}
+  - {fileID: 21300000, guid: b7487c0e9ea5446a390cba1111a84554, type: 3}
+  - {fileID: 21300000, guid: b49893aee02564ad5bf0af3a03b37c82, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - img_game_bonus
+  - img_game_bottom
+  - img_game_top_score_bg
+  - img_game_bonus2
+  - img_game_top_bg
+  - Checkerboard_1
+  m_Tag: ui Sprite Atlas
+  m_IsVariant: 0

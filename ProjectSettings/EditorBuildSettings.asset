@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Example/2.Updatable/UpdatableScene.unity
+    guid: c72eb59ca5fb02d448bb64dab96a29ef
+  - enabled: 1
+    path: Assets/Resources/Scenes/Loading Scene.unity
+    guid: 2ab33ae8c2c1748b6830d02a7bda47cf
+  m_configObjects: {}
