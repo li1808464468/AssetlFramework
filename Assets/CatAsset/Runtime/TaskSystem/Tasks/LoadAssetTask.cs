@@ -151,7 +151,7 @@ namespace CatAsset
 
                 foreach (string dependency in assetInfo.ManifestInfo.Dependencies)
                 {
-                    CatAssetManager.LoadAsset(dependency, onDependencyLoaded);
+                    CatAssetManager.LoadAssetAsync(dependency, onDependencyLoaded);
                 }
 
                 

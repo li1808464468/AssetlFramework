@@ -13,7 +13,15 @@ namespace CatAsset
         /// Base组都是本地资源
         /// </summary>
         public const string DefaultGroup = "Base";
+        
+        /// <summary>
+        /// 导出的目录中为服务器文件，StreamAsset 中的为包中的资源
+        /// </summary>
         public const string ManifestFileName = "AssetManifest.json";
+        
+        /// <summary>
+        /// 全部资源信息
+        /// </summary>
         public const string AllManifestFileName = "AllAssetManifest.json";
 
         /// <summary>

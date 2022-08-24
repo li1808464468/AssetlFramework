@@ -48,12 +48,14 @@ public class UpdatableExample : MonoBehaviour
         string versionTxtUri = UpdateUriPrefix + "/version.txt";
         Debug.Log(versionTxtUri);
         UnityWebRequest uwr = UnityWebRequest.Get(versionTxtUri);
+        uwr.timeout = 5;
         UnityWebRequestAsyncOperation op = uwr.SendWebRequest();
         op.completed += (obj) =>
         {
             if (op.webRequest.isNetworkError || op.webRequest.isHttpError)
             {
                 Debug.Log("读取远端最新版本号失败：" + op.webRequest.error);
+                updateFileSuccess();
                 return;
             }
             JsonObject jo = JsonParser.ParseJson(op.webRequest.downloadHandler.text);

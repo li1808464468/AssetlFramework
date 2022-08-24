@@ -109,18 +109,12 @@ namespace CatAsset
         /// </summary>
         public static void CheckPackageManifest(Action<bool> callback)
         {
-            // if (RunMode != RunMode.PackageOnly)
-            // {
-            //     Debug.LogError("PackageOnly模式下才能调用CheckPackageManifest");
-            //     return;
-            // }
-
             bool tag = true;
             string path = Util.GetReadWritePath(Util.ManifestFileName);
             Debug.Log("ManifestFile path = " + path);
 
             /// 先去检索可读可写路径下资源是否存在
-            if (!System.IO.File.Exists(path))
+            if (!File.Exists(path))
             {
                 Debug.Log("ManifestFile 文件不存在，获取只读路径下文件");
                 path = Util.GetReadOnlyPath(Util.ManifestFileName);
@@ -288,12 +282,42 @@ namespace CatAsset
 
         #region 资源加载
 
+
+        /// <summary>
+        /// 同步加载资源
+        /// </summary>
+        /// <param name="assetName"></param>
+        /// <param name="loadedCallback"></param>
+        public static void LoadAsset(string assetName, Action<bool, Object> loadedCallback)
+        {
+#if UNITY_EDITOR 
+          if (IsEditorMode)
+          {
+              Object asset = UnityEditor.AssetDatabase.LoadAssetAtPath(assetName, typeof(Object));
+              if (asset)
+              {
+                  loadedCallback?.Invoke(true, asset);
+              }
+              else
+              {
+                  Debug.LogError($"Asset加载失败:{assetName}");
+                  loadedCallback?.Invoke(false, null);
+              }
+          }
+#endif
+
+            LoadAssetItem item = new LoadAssetItem(assetName, loadedCallback);
+
+
+
+        }
+        
         /// <summary>
         /// 加载Asset
         /// </summary>
-        public static void LoadAsset(string assetName, Action<bool, Object> loadedCallback)
+        public static void LoadAssetAsync(string assetName, Action<bool, Object> loadedCallback)
         {
-#if UNITY_EDITOR && DEBUG_R 
+#if UNITY_EDITOR 
             if (IsEditorMode)
             {
                 EditorLoadAssetTask editorModeTask = new EditorLoadAssetTask(taskExcutor, assetName, loadedCallback);
@@ -318,7 +342,7 @@ namespace CatAsset
         /// </summary>
         public static void LoadScene(string sceneName, Action<bool, Object> loadedCallback)
         {
-#if UNITY_EDITOR && DEBUG_R
+#if UNITY_EDITOR
             if (IsEditorMode)
             {
                 SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive).completed += (op) =>
@@ -340,7 +364,7 @@ namespace CatAsset
         /// <summary>
         /// 批量加载Asset
         /// </summary>
-        public static void LoadAssets(List<string> assetNames, Action<List<Object>> loadedCallback)
+        public static void LoadAssetsAsync(List<string> assetNames, Action<List<Object>> loadedCallback)
         {
             if (assetNames == null || assetNames.Count == 0)
             {
@@ -348,7 +372,7 @@ namespace CatAsset
                 return;
             }
 
-#if UNITY_EDITOR && DEBUG_R
+#if UNITY_EDITOR
             if (IsEditorMode)
             {
                 EditorLoadAssetsTask editorModeTask = new EditorLoadAssetsTask(taskExcutor, nameof(EditorLoadAssetsTask), assetNames, loadedCallback);
@@ -383,7 +407,7 @@ namespace CatAsset
         /// </summary>
         public static void UnloadAsset(Object asset)
         {
-#if UNITY_EDITOR && DEBUG_R
+#if UNITY_EDITOR
             if (IsEditorMode)
             {
                 return;
@@ -408,7 +432,7 @@ namespace CatAsset
         /// </summary>
         public static void UnloadScene(string sceneName)
         {
-#if UNITY_EDITOR && DEBUG_R
+#if UNITY_EDITOR
             if (IsEditorMode)
             {
                 SceneManager.UnloadSceneAsync(sceneName);

@@ -2,26 +2,5 @@
 	"GameVersion":"1.0",
 	"ManifestVersion":4,
 	"Bundles":[
-		{
-			"BundleName":"scenes_gamescene.bundle",
-			"Length":10844,
-			"Hash":"ab3f22564e5bd1b064c08a0310f74574",
-			"IsScene":true,
-			"Group":"Must",
-			"Assets":[
-				{
-					"AssetName":"Assets/Scenes/GameScene.unity",
-					"Dependencies":[
-						"Assets/Res/Game/Texture/ui/img_game_bonus.png",
-						"Assets/Res/Game/Texture/bg/bg.png",
-						"Assets/Res/Game/Texture/ui/img_game_bottom.png",
-						"Assets/Res/Game/Texture/ui/img_game_top_score_bg.png",
-						"Assets/Res/Game/Texture/ui/img_game_bonus2.png",
-						"Assets/Res/Game/Texture/ui/img_game_top_bg.png",
-						"Assets/Res/Game/Texture/ui/Checkerboard_1.png"
-					]
-				}
-			]
-		}
 	]
 }

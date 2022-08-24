@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24210f5109c8c2459ccac71fce807da, type: 3}
   m_Name: PackageConfig
   m_EditorClassIdentifier: 
-  ManifestVersion: 5
+  ManifestVersion: 8
   TargetPlatforms: 0d000000
   Options: 256
   OutputPath: ./AssetBundles
-  IsAnalyzeRedundancy: 1
+  IsAnalyzeRedundancy: 0
   IsCopyToStreamingAssets: 1
   CopyGroup: Base

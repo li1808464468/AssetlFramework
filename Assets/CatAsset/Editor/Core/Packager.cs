@@ -30,7 +30,7 @@ namespace CatAsset.Editor
 
             //生成资源清单文件
             CatAssetManifest manifest = GenerateManifestFile(finalOutputPath, abBuildList,unityManifest,manifestVersion);
-
+            
 
             CreateUpdateManifest(finalOutputPath, copyGroup, manifest);
             //资源清单版本号自增
@@ -160,31 +160,40 @@ namespace CatAsset.Editor
             PkgUtil.PkgCfg.ManifestVersion++;
         }
 
+        /// <summary>
+        /// 创建资源更新Manifest
+        /// </summary>
+        /// <param name="outputPath"></param>
+        /// <param name="ignoreGopyGroup"></param>
+        /// <param name="manifest"></param>
         private static void CreateUpdateManifest(string outputPath, string ignoreGopyGroup,CatAssetManifest manifest)
         {
+            CatAssetManifest updateMainfest = new CatAssetManifest(manifest);
             
-            DirectoryInfo outputDirInfo = new DirectoryInfo(outputPath);
+            HashSet<string> copyGroupSet = null;
+            if (!string.IsNullOrEmpty(ignoreGopyGroup))
+            {
+                copyGroupSet = new HashSet<string>(ignoreGopyGroup.Split(';'));
+            }
 
             string manifestFileName = Util.ManifestFileName;
 
-
-
-            if (ignoreGopyGroup != null)
+            if (copyGroupSet != null)
             {
                 //根据要复制的资源组修改资源清单
                 List<BundleManifestInfo> abInfoList = new List<BundleManifestInfo>();
-                foreach (BundleManifestInfo abInfo in manifest.Bundles)
+                foreach (BundleManifestInfo abInfo in updateMainfest.Bundles)
                 {
-                    if (!ignoreGopyGroup.Contains(abInfo.Group))
+                    if (!copyGroupSet.Contains(abInfo.Group))
                     {
                         abInfoList.Add(abInfo);
                     }
                 }
-                manifest.Bundles = abInfoList.ToArray();
+                updateMainfest.Bundles = abInfoList.ToArray();
             }
 
             //生成仅包含被复制的资源组的资源清单文件到StreamingAssets下
-            string json = CatJson.JsonParser.ToJson(manifest);
+            string json = CatJson.JsonParser.ToJson(updateMainfest);
             using (StreamWriter sw = new StreamWriter(Path.Combine(outputPath,manifestFileName)))
             {
                 sw.Write(json);
@@ -200,6 +209,7 @@ namespace CatAsset.Editor
         /// </summary>
         private static void CopyToStreamingAssets(string outputPath, string copyGroup,CatAssetManifest manifest)
         {
+            CatAssetManifest localManifest = new CatAssetManifest(manifest);
             
             //要复制的资源组的Set
             HashSet<string> copyGroupSet = null;
@@ -252,18 +262,18 @@ namespace CatAsset.Editor
             {
                 //根据要复制的资源组修改资源清单
                 List<BundleManifestInfo> abInfoList = new List<BundleManifestInfo>();
-                foreach (BundleManifestInfo abInfo in manifest.Bundles)
+                foreach (BundleManifestInfo abInfo in localManifest.Bundles)
                 {
                     if (copyGroupSet.Contains(abInfo.Group))
                     {
                         abInfoList.Add(abInfo);
                     }
                 }
-                manifest.Bundles = abInfoList.ToArray();
+                localManifest.Bundles = abInfoList.ToArray();
             }
 
             //生成仅包含被复制的资源组的资源清单文件到StreamingAssets下
-            string json = CatJson.JsonParser.ToJson(manifest);
+            string json = CatJson.JsonParser.ToJson(localManifest);
             using (StreamWriter sw = new StreamWriter(Util.GetReadOnlyPath(manifestFileName)))
             {
                 sw.Write(json);

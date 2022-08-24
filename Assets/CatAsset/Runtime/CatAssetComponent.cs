@@ -27,7 +27,7 @@ namespace CatAsset
            
             CatAssetManager.IsEditorMode = IsEditorMode;
             CatAssetManager.EditorModeMaxDelay = EditorModeMaxDelay;
-
+            DontDestroyOnLoad(this);
         }
 
         private void Update()

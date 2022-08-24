@@ -36,7 +36,7 @@ public class PackageOnlyExample : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.A))
             {
                 //加载Cube的预制体
-                CatAssetManager.LoadAsset("Assets/Res/Base/Prefabs/Cube.prefab", (success, asset) =>
+                CatAssetManager.LoadAssetAsync("Assets/Res/Base/Prefabs/Cube.prefab", (success, asset) =>
                 {
                     if (success)
                     {
