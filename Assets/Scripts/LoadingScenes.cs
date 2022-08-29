@@ -48,16 +48,22 @@ namespace Game
 
         private void loadScenes()
         {
-            CatAssetManager.LoadScene("Assets/Scenes/GameScene.unity", (success, asset) =>
+            CatAssetManager.LoadScene("Assets/Scenes/GameScene/GameScene.unity", (success, asset) =>
             {
                 if (success)
                 {
-                    Debug.Log("加载Cube");
-
                     SceneManager.LoadScene("GameScene");
                 }
-                   
             });
+            
+            
+            // CatAssetManager.LoadScene("Assets/Scenes/GameScene.unity", (success, asset) =>
+            // {
+            //     if (success)
+            //     {
+            //         SceneManager.LoadScene("GameScene");
+            //     }
+            // });
         }
         
     }

@@ -35,11 +35,17 @@ namespace CatAsset
         public LoadAssetItem(string name, Action<bool, Object> onFinished)
         {
             Name = name;
-            assetInfo = CatAssetManager.assetInfoDict[name];
-            bundleInfo = CatAssetManager.bundleInfoDict[assetInfo.BundleName];
-            onDependencyLoaded = OnDependencyLoaded;
-            this.onFinished = onFinished;
-            this.loadAsset();
+            if (CatAssetManager.assetInfoDict.TryGetValue(name, out assetInfo))
+            {
+                bundleInfo = CatAssetManager.bundleInfoDict[assetInfo.BundleName];
+                onDependencyLoaded = OnDependencyLoaded;
+                this.onFinished = onFinished;
+                this.loadAsset();
+            }
+            else
+            {
+                Debug.LogError( name + " 资源不存在");
+            }
         }
         
         
@@ -62,12 +68,15 @@ namespace CatAsset
             //Bundle未加载到内存中 加载Bundle
             var bundleInfo = CatAssetManager.bundleInfoDict[assetInfo.BundleName];
             bundleInfo.Bundle = AssetBundle.LoadFromFile(bundleInfo.LoadPath);
+    
             if (bundleInfo.Bundle == null)
             {
+                Debug.LogError("Bundle加载失败：" + bundleInfo.Bundle.name);
                 this.onAssetLoaded();
             }
             else
             {
+                Debug.Log("Bundle加载成功：" + bundleInfo.Bundle.name);
                 this.onBundleLoaded();
             }
         }
@@ -82,6 +91,8 @@ namespace CatAsset
                 //添加关联
                 CatAssetManager.assetToAssetInfoDict[assetInfo.Asset] = assetInfo;
             }
+            
+            this.onAssetLoaded();
         }
         
 
@@ -154,8 +165,6 @@ namespace CatAsset
                     bundleInfo.DependencyBundles.Add(dependencyAssetInfo.BundleName);
                     dependencyBundleInfo.DependencyCount++;
                 }
-
-               this.dependencyLoadCB();
             }
 
           

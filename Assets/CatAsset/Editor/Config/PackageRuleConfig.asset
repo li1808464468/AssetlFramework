@@ -16,12 +16,12 @@ MonoBehaviour:
   - Directory: Assets/Bundes/Dialogs
     Mode: 1
     Group: Base
-  - Directory: Assets/Res/
+  - Directory: Assets/Bundes/Fonts
     Mode: 0
     Group: Base
   - Directory: Assets/Scenes
-    Mode: 2
+    Mode: 1
     Group: Base
-  - Directory: Assets/Bundes/Fonts
+  - Directory: Assets/Textures
     Mode: 0
     Group: Base

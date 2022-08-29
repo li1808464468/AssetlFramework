@@ -19,6 +19,18 @@ public class GameScene : MonoBehaviour
 
     public void ButtonClick()
     {
+        
+        // CatAssetManager.LoadAssetAsync("Assets/Bundes/Dialogs/SettingDialog/Prefabs/PopupSetting.prefab", (success, asset) =>
+        // {
+        //     if (success)
+        //     { 
+        //         var settingDialog = Instantiate((GameObject)asset);
+        //         settingDialog.transform.SetParent(transform, false);
+        //     }
+        //            
+        // });
+        
+        
         CatAssetManager.LoadAsset("Assets/Bundes/Dialogs/SettingDialog/Prefabs/PopupSetting.prefab", (success, asset) =>
         {
             if (success)

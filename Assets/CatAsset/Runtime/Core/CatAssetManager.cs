@@ -356,6 +356,7 @@ namespace CatAsset
             {
                 return;
             }
+            
             //创建加载场景的任务
             LoadSceneTask task = new LoadSceneTask(taskExcutor, sceneName, loadedCallback);
             taskExcutor.AddTask(task);

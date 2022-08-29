@@ -9,12 +9,9 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Example/2.Updatable/UpdatableScene.unity
-    guid: c72eb59ca5fb02d448bb64dab96a29ef
-  - enabled: 1
     path: Assets/Resources/Scenes/Loading Scene.unity
     guid: 2ab33ae8c2c1748b6830d02a7bda47cf
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
-    guid: 9596ff1883fd2484980487a936fcd616
+    path: Assets/Example/2.Updatable/UpdatableScene.unity
+    guid: c72eb59ca5fb02d448bb64dab96a29ef
   m_configObjects: {}
