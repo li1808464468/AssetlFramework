@@ -238,6 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Text: {fileID: 732041572}
   progress: {fileID: 637691577}
+  UpdateUriPrefix: http://127.94.0.1:8080
 --- !u!1 &617002024
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,80 +1,15 @@
 {
 	"GameVersion":"1.0",
-	"ManifestVersion":40,
+	"ManifestVersion":2,
 	"Bundles":[
 		{
-			"BundleName":"bundes_dialogs_settingdialog.bundle",
-			"Length":64860,
-			"Hash":"9d917c9dcc4155c03b2ef123ee954f1c",
-			"Group":"Base",
-			"Assets":[
-				{
-					"AssetName":"Assets/Bundes/Dialogs/SettingDialog/Prefabs/PopupSetting.prefab",
-					"Dependencies":[
-						"Assets/Bundes/Dialogs/SettingDialog/Textures/Bg.png",
-						"Assets/Bundes/Dialogs/popupUI/popup_bg.png"
-					]
-				},
-				{
-					"AssetName":"Assets/Bundes/Dialogs/SettingDialog/Textures/Bg.png",
-					"Dependencies":[
-					]
-				},
-				{
-					"AssetName":"Assets/Bundes/Dialogs/SettingDialog/Textures/BtnClose.png",
-					"Dependencies":[
-					]
-				},
-				{
-					"AssetName":"Assets/Bundes/Dialogs/SettingDialog/Textures/Button_Off.png",
-					"Dependencies":[
-					]
-				},
-				{
-					"AssetName":"Assets/Bundes/Dialogs/SettingDialog/Textures/Button_On.png",
-					"Dependencies":[
-					]
-				},
-				{
-					"AssetName":"Assets/Bundes/Dialogs/SettingDialog/Textures/Button_Replay.png",
-					"Dependencies":[
-					]
-				},
-				{
-					"AssetName":"Assets/Bundes/Dialogs/SettingDialog/Textures/Icon_Music.png",
-					"Dependencies":[
-					]
-				},
-				{
-					"AssetName":"Assets/Bundes/Dialogs/SettingDialog/Textures/Icon_Sound.png",
-					"Dependencies":[
-					]
-				},
-				{
-					"AssetName":"Assets/Bundes/Dialogs/SettingDialog/Textures/Line.png",
-					"Dependencies":[
-					]
-				},
-				{
-					"AssetName":"Assets/Bundes/Dialogs/SettingDialog/Textures/Private.png",
-					"Dependencies":[
-					]
-				},
-				{
-					"AssetName":"Assets/Bundes/Dialogs/SettingDialog/Textures/Settings.png",
-					"Dependencies":[
-					]
-				}
-			]
-		},
-		{
-			"BundleName":"bundes_dialogs_popupui.bundle",
-			"Length":3928,
+			"BundleName":"bundes_dialogs_popupcommon.bundle",
+			"Length":3932,
 			"Hash":"ebbc496e9a78ed31d6b98f46d713caa5",
 			"Group":"Base",
 			"Assets":[
 				{
-					"AssetName":"Assets/Bundes/Dialogs/popupUI/popup_bg.png",
+					"AssetName":"Assets/Bundes/Dialogs/PopupCommon/popup_bg.png",
 					"Dependencies":[
 					]
 				}
@@ -82,21 +17,99 @@
 		},
 		{
 			"BundleName":"bundes_fonts.bundle",
-			"Length":136906,
-			"Hash":"63f53445c628f5d7b51b4b047e2b84d0",
+			"Length":202878,
+			"Hash":"abe959980bbc7886402169266f9a939a",
 			"Group":"Base",
 			"Assets":[
 				{
-					"AssetName":"Assets/Bundes/Fonts/jewelpuzzle5 6.mat",
+					"AssetName":"Assets/Bundes/Fonts/jewelpuzzle5.asset",
 					"Dependencies":[
-						"Assets/Bundes/Fonts/jewelpuzzle5.asset",
-						"Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader"
+						"Assets/Bundes/Fonts/Shaders/TMP_SDF.shader"
 					]
 				},
 				{
-					"AssetName":"Assets/Bundes/Fonts/jewelpuzzle5.asset",
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMP_Bitmap.shader",
 					"Dependencies":[
-						"Assets/TextMesh Pro/Shaders/TMP_SDF.shader"
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMP_Bitmap-Custom-Atlas.shader",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMP_Bitmap-Mobile.shader",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMP_SDF Overlay.shader",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMP_SDF SSD.shader",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMP_SDF.shader",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMP_SDF-Mobile Masking.shader",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMP_SDF-Mobile Overlay.shader",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMP_SDF-Mobile SSD.shader",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMP_SDF-Mobile.shader",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMP_SDF-Surface.shader",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMP_SDF-Surface-Mobile.shader",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMP_Sprite.shader",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMPro.cginc",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMPro_Mobile.cginc",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMPro_Properties.cginc",
+					"Dependencies":[
+					]
+				},
+				{
+					"AssetName":"Assets/Bundes/Fonts/Shaders/TMPro_Surface.cginc",
+					"Dependencies":[
 					]
 				}
 			]

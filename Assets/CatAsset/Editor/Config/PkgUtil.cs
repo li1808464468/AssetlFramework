@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 namespace CatAsset.Editor
@@ -91,7 +92,7 @@ namespace CatAsset.Editor
         }
 
         /// <summary>
-        /// 获取排除了自身和csharp代码文件的依赖资源列表
+        /// 获取排除了自身和csharp代码文件的依赖资源列表和所有在Resources文件夹的资源
         /// </summary>
         public static string[] GetDependencies(string assetName,bool recursive = true)
         {
@@ -106,7 +107,8 @@ namespace CatAsset.Editor
             for (int i = 0; i < dependencies.Length; i++)
             {
                 string dependencyName = dependencies[i];
-                if (dependencyName == assetName || dependencyName.EndsWith(".cs"))
+                string[] listName = dependencyName.Split('/');
+                if (dependencyName == assetName || dependencyName.EndsWith(".cs") || listName.Contains("Resources"))
                 {
                     continue;
                 }

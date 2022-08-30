@@ -110,6 +110,7 @@ namespace CatAsset
             if (!success)
             {
                 Debug.LogError("远端资源清单检查失败:" + error);
+                onVersionChecked?.Invoke(0, 0);
                 return;
             }
 

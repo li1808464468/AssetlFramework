@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Object = UnityEngine.Object;
 using UnityEngine.SceneManagement;
 
@@ -105,33 +106,67 @@ namespace CatAsset
         #region 资源清单检查
 
         /// <summary>
-        /// 检查安装包内资源清单,仅使用安装包内资源模式下专用
+        /// 检查安装包内资源清单，将资源保存为一个dir，加载前检测这个dir中是否有该资源
         /// </summary>
         public static void CheckPackageManifest(Action<bool> callback)
         {
             bool tag = true;
             string path = Util.GetReadWritePath(Util.ManifestFileName);
             Debug.Log("ManifestFile path = " + path);
-
-            /// 先去检索可读可写路径下资源是否存在
+            
+            /// 先去检索可读可写路径下资源是否存在，如果可读可写路径下文件存在，先读取可读可写路径下资源，然后在读取只读路劲下资源
             if (!File.Exists(path))
             {
-                Debug.Log("ManifestFile 文件不存在，获取只读路径下文件");
-                path = Util.GetReadOnlyPath(Util.ManifestFileName);
-                tag = false;
+                Debug.Log("可读可写 ManifestFile 文件不存在，获取只读路径下文件");
+                checkStreamingAssetsManifest(callback); 
+            }
+            else
+            {
+                checkReadWriteManifest(path, callback);
             }
 
+        }
+
+        /// <summary>
+        /// 检测可读可写路径下资源
+        /// </summary>
+        private static void checkReadWriteManifest(string path, Action<bool> callback)
+        {
+            Debug.Log("ManifestFile，获取可读可写路径下文件");
+            path = "file:///"  + path;
+            
+            WebRequestTask task = new WebRequestTask(taskExcutor, path, path, (success, error, uwr) => {
+                if (!success)
+                {
+                    Debug.LogError("资源清单检查失败");
+                    callback?.Invoke(false);
+                    return;
+                }
+                CatAssetManifest manifest = CatJson.JsonParser.ParseJson<CatAssetManifest>(uwr.downloadHandler.text);
+                foreach (BundleManifestInfo abInfo in manifest.Bundles)
+                {
+                    bool isReadWrite = !abInfo.Group.Equals(Util.DefaultGroup);
+                    InitRuntimeInfo(abInfo, isReadWrite);
+                }
+                Debug.Log("ManifestFile，读取可读可写路径下信息结束");
+
+                checkStreamingAssetsManifest(callback);
+            });
+
+            taskExcutor.AddTask(task);
+
+        }
+
+        /// <summary>
+        /// 本地的StreamingAssets 资源
+        /// </summary>
+        public static void checkStreamingAssetsManifest(Action<bool> callback)
+        {
+            Debug.Log("ManifestFile，获取只读路径下文件");
+            string path = Util.GetReadOnlyPath(Util.ManifestFileName);
 #if UNITY_EDITOR
             path = "file:///"  + path;
 #endif
-            if (tag)
-            {
-                path = "file:///"  + path;
-            }
-            
-            
-            Debug.Log( "Check ManifestFile Path = " + path);
-
             WebRequestTask task = new WebRequestTask(taskExcutor, path, path, (success, error, uwr) => {
                 if (!success)
                 {
@@ -149,7 +184,9 @@ namespace CatAsset
             });
 
             taskExcutor.AddTask(task);
+
         }
+        
 
         /// <summary>
         /// 检查资源版本,可更新模式与边玩边下模式专用
@@ -171,8 +208,14 @@ namespace CatAsset
         /// </summary>
         internal static void InitRuntimeInfo(BundleManifestInfo bundleManifestInfo, bool inReadWrite)
         {
+            string bundleName = bundleManifestInfo.BundleName;
+            if (bundleInfoDict.ContainsKey(bundleName))
+            {
+                return;
+            }
+            
             BundleRuntimeInfo bundleRuntimeInfo = new BundleRuntimeInfo();
-            bundleInfoDict.Add(bundleManifestInfo.BundleName, bundleRuntimeInfo);
+            bundleInfoDict.Add(bundleName, bundleRuntimeInfo);
             bundleRuntimeInfo.ManifestInfo = bundleManifestInfo;
             bundleRuntimeInfo.InReadWrite = inReadWrite;
 
@@ -303,6 +346,7 @@ namespace CatAsset
                   Debug.LogError($"Asset加载失败:{assetName}");
                   loadedCallback?.Invoke(false, null);
               }
+              return;
           }
 #endif
 

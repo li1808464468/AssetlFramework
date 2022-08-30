@@ -19,6 +19,8 @@ namespace CatAsset
         /// </summary>
         internal static Dictionary<string, BundleManifestInfo> readWriteManifestInfoDict = new Dictionary<string, BundleManifestInfo>();
 
+        
+        
         /// <summary>
         /// 资源更新Uri前缀，下载资源文件时会以 UpdateUriPrefix/AssetBundleName 为下载地址
         /// </summary>
@@ -43,8 +45,42 @@ namespace CatAsset
                 bundleInfos[index] = item.Value;
                 index++;
             }
+            
 
-            manifest.Bundles = bundleInfos;
+            List<BundleManifestInfo> allBundleInfos = new List<BundleManifestInfo>();
+            Dictionary<string, BundleManifestInfo> localreadWriteManifestInfoDict = new Dictionary<string, BundleManifestInfo>();
+
+            if (System.IO.File.Exists((Util.GetReadWritePath(Util.ManifestFileName))))
+            {
+                StreamReader sr = new StreamReader(Util.GetReadWritePath(Util.ManifestFileName));
+                string str = sr.ReadToEnd();
+                CatAssetManifest localManifest = JsonParser.ParseJson<CatAssetManifest>(str);
+                foreach (var item in localManifest.Bundles)
+                {
+                    
+                    if (!localreadWriteManifestInfoDict.ContainsKey(item.BundleName))
+                    {
+                        localreadWriteManifestInfoDict.Add(item.BundleName, item);
+                    }
+                }
+            }
+            
+            /// 远端下载的新数据替换本地的可读可写中的老的数据
+            foreach (KeyValuePair<string, BundleManifestInfo> item in localreadWriteManifestInfoDict)
+            {
+                if (readWriteManifestInfoDict.ContainsKey(item.Key))
+                {
+                    continue;
+                }
+                
+                allBundleInfos.Add(item.Value);
+            }  
+            
+            /// 将新配置添加到老配置数据最后
+            allBundleInfos.AddRange(bundleInfos);
+            
+            /// 将全部数据写入配置数据
+            manifest.Bundles = allBundleInfos.ToArray();
 
             //写入清单文件json
             string json = JsonParser.ToJson(manifest);

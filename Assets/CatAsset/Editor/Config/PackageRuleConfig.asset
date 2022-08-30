@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: PackageRuleConfig
   m_EditorClassIdentifier: 
   Rules:
-  - Directory: Assets/Bundes/Dialogs
-    Mode: 1
+  - Directory: Assets/Bundes/Dialogs/PopupCommon
+    Mode: 0
     Group: Base
+  - Directory: Assets/Bundes/Dialogs/SettingDialog
+    Mode: 1
+    Group: Must
   - Directory: Assets/Bundes/Fonts
     Mode: 0
     Group: Base
